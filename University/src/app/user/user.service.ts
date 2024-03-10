@@ -9,19 +9,20 @@ import { User } from '../../Entities/User.model';
 export class UserService {
 
   getUserById(id: number): Observable<User> {
-    return this._http.get<User>(`/api/users/${id}`);
+    return this._http.get<User>(`/users/${id}`);
   }
 
   loginUser(name:string, password:string):Observable<User>{
-    return this._http.put(`api/users/{name}`,{name:name,password: password});
+    return this._http.put(`/users/{name}`,{name:name,password: password});
   }
 
   addUser(user:User):Observable<User>{ 
-    return this._http.post(`/api/users`,user);
+    console.log("service",user);
+    return this._http.post(`/users`,user);
   }
 
   updateUser(user:User):Observable<User>{
-    return this._http.put(`/api/users/${user.id}`,user);
+    return this._http.put(`/users/${user.id}`,user);
   }
 
   constructor(private _http: HttpClient) { }

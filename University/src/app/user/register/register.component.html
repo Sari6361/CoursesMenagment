@@ -1,12 +1,14 @@
+<app-top-bar /><br />
+
 <div class="card">
     <div class="card-body">
         <form [formGroup]="registerUser">
 
             <div class="form-group form-floating mb-3">
 
-                <label for="name">user name:</label>
+                <label class="form-label" for="name">User name:</label>
                 <input class="form-control" [ngClass]="{'invalid':registerUser.controls['name'].errors}" type="text"
-                    id="name" formControlName="name" name="name" />
+                    id="name" formControlName="name" name="name" placeholder="enter name...">
 
                 <ng-container *ngIf="registerUser.controls['name'].errors">
                     <div class="invalid-feedback" *ngIf="registerUser.controls['name'].errors['required']">
@@ -18,26 +20,27 @@
                 </ng-container>
 
             </div>
-
+            <br />
             <div class="form-group form-floating mb-3">
 
-                <label for="addres">user address:</label>
-                <input class="form-control" type="text" id="addres" formControlName="addres" name="addres" />
+                <label class="form-label" for="addres">user address:</label>
+                <input class="form-control" type="text" id="addres" formControlName="addres" name="addres">
 
             </div>
-
+            <br />
             <div class="form-group form-floating mb-3">
 
-                <label for="email">user email:</label>
-                <input class="form-control" type="text" id="email" formControlName="email" name="email" />
+                <label class="form-label" for="email">user email:</label>
+                <input class="form-control" type="email" id="email" formControlName="email" name="email">
 
             </div>
+            <br />
 
             <div class="form-group form-floating mb-3">
 
-                <label for="password">user password:</label>
-                <input class="form-control" [ngClass]="{'invalid':registerUser.controls['password'].errors}" type="text"
-                    id="password" formControlName="password" name="password" />
+                <label class="control-label" for="password">user password:</label>
+                <input class="form-control" [ngClass]="{'invalid':registerUser.controls['password'].errors}"
+                    type="password" id="password" formControlName="password" name="password">
 
                 <ng-container *ngIf="registerUser.controls['password'].errors">
                     <div class="invalid-feedback" *ngIf="registerUser.controls['password'].errors['required']">
@@ -49,16 +52,17 @@
                 </ng-container>
 
             </div>
+            <br />
 
             <div class="form-group form-floating mb-3">
 
-                <div [ngSwitch]="registerUser.controls['role'].value">
-                    <div *ngSwitchCase="'Role.Student'" class="div_switch">
-                       Student
-                    </div>
-                    <div *ngSwitchCase="'Role.Lecturer'" class="div_switch">
-                        Lecturer
-                    </div>
+                <div class="form-group ">
+                    <label class="control-label" for="role">user role:</label>
+                    <br>
+                    <input class="radio" type="radio" name="role" formControlName="role" value="Role.Student"> Student
+                    <br>
+                    <input class="radio" type="radio" name="role" formControlName="role" value="Role.Lecturer">
+                    Lecturer
                 </div>
 
                 <ng-container *ngIf="registerUser.controls['role'].errors">
@@ -68,6 +72,7 @@
                 </ng-container>
 
             </div>
+            <br />
             <button class="btn btn-primary" (click)="Save()" [disabled]="registerUser.invalid">Log In</button>
 
         </form>

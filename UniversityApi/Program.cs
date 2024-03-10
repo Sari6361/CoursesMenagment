@@ -45,8 +45,8 @@ app.UseCors("Policy");
 app.MapGet("/users/{id}", async (UniversityDbContext context, int id) => Results.Ok(await context.Users.FindAsync(id)));
 
 //Find user by name and password
-app.MapPut("/users/{name}", async (UniversityDbContext context, [FromBody] userLogin) =>
-    Results.Ok(await context.Users.FindAsync(u => u.Password.equals(userLogin.password) && u.Name.equals(userLogin.name))););
+// app.MapPut("/users/{name}", async (UniversityDbContext context, [FromBody] userLogin) =>
+//     Results.Ok(await context.Users.FindAsync(u => {u.Password.equals(userLogin.password) && u.Name.equals(userLogin.name)})));
 
 //Add user
 app.MapPost("/users", async (UniversityDbContext context, User user) =>

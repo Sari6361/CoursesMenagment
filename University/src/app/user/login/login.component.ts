@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 import { User } from '../../../Entities/User.model';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    imports: [ReactiveFormsModule, CommonModule, TopBarComponent]
 })
 
 export class LoginComponent implements OnInit {

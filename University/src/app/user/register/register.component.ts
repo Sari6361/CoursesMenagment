@@ -6,13 +6,14 @@ import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Role } from '../../../Entities/User.model';
+import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, CommonModule],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-register',
+    standalone: true,
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css',
+    imports: [RouterModule, ReactiveFormsModule, CommonModule, TopBarComponent]
 })
 export class RegisterComponent implements OnInit {
 
@@ -45,6 +46,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error: (err) => {
+        console.log("log:",u);
         Swal.fire({
           title: `Oh ${u?.name}`,
           text: "You've problame in registe! please check name and password",

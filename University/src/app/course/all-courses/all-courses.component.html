@@ -1,8 +1,21 @@
 <p>all-courses works!</p>
 
 <div class="card-group">
-    <div *ngFor="let c in courses" class="card">
-        
-
+    <div class="row">
+        <div *ngfor="let c in courses" class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img src = {{ c.imgRouting }} class="card-img-top" alt="...">
+                    <h5 class="card-title">{{c.name}}</h5>
+                    <p class="card-text"></p>
+                    <button (click)="moreDetailes(c)" class="btn btn-primary">More Detailes</button>
+                    <button (click)="update(c)" class="btn btn-primary">Edit</button>
+                    <button (click)="deleteCourse(c)" class="btn btn-primary">Delete</button>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Start Date :{{c.startDate}} ,learning way is  {{c.learningWay}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

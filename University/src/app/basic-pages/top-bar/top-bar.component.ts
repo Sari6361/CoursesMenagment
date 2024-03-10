@@ -16,44 +16,45 @@ export class TopBarComponent implements OnInit {
 
   public user: User | undefined;
   public role: Role = Role.Lecturer;
-  public userId:number=0;
+  public userId: number = 0;
 
   constructor(private _router: Router) { }
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem("user"));
-    if(this.user)
-    this.userId=this.user.id;
+    if (typeof window !== 'undefined' && localStorage.getItem("user")!=null )
+      this.user = JSON.parse(localStorage.getItem("user"));
+    if (this.user)
+      this.userId = this.user.id;
     console.log(this.user);
-    
+
   }
 
   toHomePage() {
-    this._router.navigate(['/home'])
+    this._router.navigate(['/home']);
   }
 
   toAllCourses() {
-    this._router.navigate(['/allCourses'])
+    this._router.navigate(['/course/allCourses']);
   }
 
   toMyCourses() {
-    this._router.navigate(['/myCourses'])
+    this._router.navigate(['/course/myCourses']);
   }
 
   toAddCourse() {
 
-    this._router.navigate(['/addCourse'])
+    this._router.navigate(['/course/addCourse']);
   }
 
   toLogin() {
-    this._router.navigate(['/user/logIn'])
+    this._router.navigate(['/user/logIn']);
   }
 
   toRegisterIn() {
-    this._router.navigate(['/user/registerIn'])
+    this._router.navigate(['/user/registerIn']);
   }
 
   toLogout() {
-
+    localStorage.setItem("user", null);
   }
 
 }

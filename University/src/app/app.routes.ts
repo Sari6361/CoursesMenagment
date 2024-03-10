@@ -1,6 +1,7 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './basic-pages/not-found/not-found.component';
 import { HomeComponent } from './basic-pages/home/home.component';
+import { NgModule } from '@angular/core';
 
 export const routes: Routes = [
     {path:"", redirectTo:"home",pathMatch: "full"},
@@ -9,3 +10,12 @@ export const routes: Routes = [
     {path:"course", loadComponent:()=>import('./course/course.module').then(c=>c.CourseModule)},
     { path: "**", component: NotFoundComponent }
 ];
+
+
+@NgModule({
+    declarations: [],
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule { }
+

@@ -7,13 +7,13 @@ import { NotFoundComponent } from '../../basic-pages/not-found/not-found.compone
 
 
 const userRoutes: Routes = [
-  { path: '/', redirectTo: 'home', pathMatch: 'full' },
-  { path: '/logIn', component: LoginComponent },
-  { path: '/registerIn', component: RegisterComponent },
-  { path: '/update', component: UpdateProfileComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'logIn', component: LoginComponent },
+  { path: 'registerIn', component: RegisterComponent },
+  { path: 'update', component: UpdateProfileComponent },
   { path: '**', component: NotFoundComponent }
 ]
-
+ 
 
 @NgModule({
   declarations: [],
