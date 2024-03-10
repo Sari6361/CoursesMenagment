@@ -1,1 +1,75 @@
-<p>register works!</p>
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="registerUser">
+
+            <div class="form-group form-floating mb-3">
+
+                <label for="name">user name:</label>
+                <input class="form-control" [ngClass]="{'invalid':registerUser.controls['name'].errors}" type="text"
+                    id="name" formControlName="name" name="name" />
+
+                <ng-container *ngIf="registerUser.controls['name'].errors">
+                    <div class="invalid-feedback" *ngIf="registerUser.controls['name'].errors['required']">
+                        name is required.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="registerUser.controls['name'].errors['minLength']">
+                        name must be at least 5 chars.
+                    </div>
+                </ng-container>
+
+            </div>
+
+            <div class="form-group form-floating mb-3">
+
+                <label for="addres">user address:</label>
+                <input class="form-control" type="text" id="addres" formControlName="addres" name="addres" />
+
+            </div>
+
+            <div class="form-group form-floating mb-3">
+
+                <label for="email">user email:</label>
+                <input class="form-control" type="text" id="email" formControlName="email" name="email" />
+
+            </div>
+
+            <div class="form-group form-floating mb-3">
+
+                <label for="password">user password:</label>
+                <input class="form-control" [ngClass]="{'invalid':registerUser.controls['password'].errors}" type="text"
+                    id="password" formControlName="password" name="password" />
+
+                <ng-container *ngIf="registerUser.controls['password'].errors">
+                    <div class="invalid-feedback" *ngIf="registerUser.controls['password'].errors['required']">
+                        password is required.
+                    </div>
+                    <div class="invalid-feedback" *ngIf="registerUser.controls['password'].errors['minLength']">
+                        password must be at least 5 chars.
+                    </div>
+                </ng-container>
+
+            </div>
+
+            <div class="form-group form-floating mb-3">
+
+                <div [ngSwitch]="registerUser.controls['role'].value">
+                    <div *ngSwitchCase="'Role.Student'" class="div_switch">
+                       Student
+                    </div>
+                    <div *ngSwitchCase="'Role.Lecturer'" class="div_switch">
+                        Lecturer
+                    </div>
+                </div>
+
+                <ng-container *ngIf="registerUser.controls['role'].errors">
+                    <div class="invalid-feedback" *ngIf="registerUser.controls['role'].errors['required']">
+                        please choose your role, it`s required.
+                    </div>
+                </ng-container>
+
+            </div>
+            <button class="btn btn-primary" (click)="Save()" [disabled]="registerUser.invalid">Log In</button>
+
+        </form>
+    </div>
+</div>

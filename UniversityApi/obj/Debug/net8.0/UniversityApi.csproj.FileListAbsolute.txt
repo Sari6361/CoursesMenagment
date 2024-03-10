@@ -125,3 +125,4 @@ F:\הגשות\Angular\UniversityApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swag
 F:\הגשות\Angular\UniversityApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 F:\הגשות\Angular\UniversityApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 F:\הגשות\Angular\UniversityApi\obj\Debug\net8.0\UniversityApi.MvcApplicationPartsAssemblyInfo.cs
+F:\הגשות\Angular\UniversityApi\obj\Debug\net8.0\UniversityApi.sourcelink.json

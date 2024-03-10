@@ -12,7 +12,11 @@ export class UserService {
     return this._http.get<User>(`/api/users/${id}`);
   }
 
-  addUser(user:User):Observable<User>{
+  loginUser(name:string, password:string){
+    return this._http.put(`api/users/{name}`,{name:name,password: password});
+  }
+
+  addUser(user:User):Observable<User>{ 
     return this._http.post(`/api/users`,user);
   }
 

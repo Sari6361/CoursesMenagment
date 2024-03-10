@@ -7,9 +7,9 @@ import { NotFoundComponent } from '../../basic-pages/not-found/not-found.compone
 
 
 const userRoutes:Routes=[
-  {path:'',redirectTo:'', pathMatch:'full' },
-  {path:'/login', component:LoginComponent},
-  {path:'/register', component:RegisterComponent},
+  {path:'/',redirectTo:'home', pathMatch:'full' },
+  {path:'/logIn', component:LoginComponent},
+  {path:'/registerIn', component:RegisterComponent},
   {path:'/update', component:UpdateProfileComponent},
   {path:'**', component:NotFoundComponent}
 ]
