@@ -12,7 +12,7 @@ export class UserService {
     return this._http.get<User>(`/api/users/${id}`);
   }
 
-  loginUser(name:string, password:string){
+  loginUser(name:string, password:string):Observable<User>{
     return this._http.put(`api/users/{name}`,{name:name,password: password});
   }
 

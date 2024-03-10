@@ -36,13 +36,14 @@ export class LoginComponent implements OnInit {
         console.log("user: ", user);
         Swal.fire({
           title: `Welcome! ${user.name}`,
-          text: "You've register in successfully!",
+          text: "we are fun you come in back!",
           icon: "success"
         });
         localStorage.setItem("user", JSON.stringify(user));
         this._router.navigate(['/home']);
       },
-      error:()=>{}
+      error:(err)=>{console.log(err);
+      }
     })
 
   }

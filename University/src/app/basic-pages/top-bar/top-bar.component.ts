@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { User } from '../../../Entities/User.model';
 import { CommonModule } from '@angular/common';
@@ -12,35 +12,48 @@ import { Role } from '../../../Entities/User.model';
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css'
 })
-export class TopBarComponent {
+export class TopBarComponent implements OnInit {
 
-  public user:User;
-  public role:Role=Role.Lecturer;
+  public user: User | undefined;
+  public role: Role = Role.Lecturer;
+  public userId:number=0;
 
-  constructor(private _router:Router) {}
+  constructor(private _router: Router) { }
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    if(this.user)
+    this.userId=this.user.id;
+    console.log(this.user);
+    
+  }
 
   toHomePage() {
     this._router.navigate(['/home'])
   }
 
-  toAllCourses(){
+  toAllCourses() {
     this._router.navigate(['/allCourses'])
   }
 
-  toMyCourses(){
+  toMyCourses() {
     this._router.navigate(['/myCourses'])
   }
 
-  toAddCourse(){
+  toAddCourse() {
+
     this._router.navigate(['/addCourse'])
   }
 
-  taLogin(){
+  toLogin() {
     this._router.navigate(['/user/logIn'])
   }
 
-  toRegisterIn(){
+  toRegisterIn() {
     this._router.navigate(['/user/registerIn'])
+  }
+
+  toLogout() {
+
   }
 
 }

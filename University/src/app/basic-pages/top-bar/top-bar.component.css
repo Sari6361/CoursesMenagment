@@ -1,0 +1,9 @@
+.head{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bt{
+    margin: 10px;
+}

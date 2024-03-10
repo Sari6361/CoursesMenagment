@@ -1,35 +1,33 @@
-<nav class="navbar bg-dark border-bottom border-body">
-    <div class="container-fluid">
+<div class="bg-dark">
+    <nav class="navbar bg-dark border-bottom border-body">
+        <div class="container-fluid">
+            <div class="container-fluid head">
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-                <li class="nav-item">
-                    <button type="button" (click)="toHomePage()" class="btn btn-outline-light" aria-current="page">Home</button>
-                </li>
-        
-                <li class="nav-item">
-                    <button type="button" (click)="toAllCourses()" class="btn btn-outline-light" aria-current="page">All Course</button>
-                </li>
-        
-                <li class="nav-item">
-                    <button type="button" (click)="toMyCourses()" class="btn btn-outline-light" aria-current="page">My Courses</button>
-                </li>
-        
-                <!-- <li class="nav-item" *ngIf="user.role==role"> -->
-                    <!-- <button  type="button" (click)="toAddCourse()" class="btn btn-outline-light" aria-current="page">Add Course</button> -->
-                <!-- </li> -->
-        
-            </ul>
-        
-            <form class="d-flex">
-                <button (click)="taLogin()" class="btn btn-outline-success" type="submit">Log In</button>
-                <button (click)="toRegisterIn()" class="btn btn-outline-success" type="submit">Sign In</button>
-            </form>
-        
+
+                <button type="button" (click)="toHomePage()" class="bt btn btn-outline-light"
+                    aria-current="page">Home</button>
+
+                <button type="button" (click)="toAllCourses()" class="bt btn btn-outline-light" aria-current="page">All
+                    Course</button>
+
+                <button type="button" *ngIf="user!=null" (click)="toMyCourses()" class="bt btn btn-outline-light"
+                    aria-current="page">My Courses</button>
+
+                <!-- <button  type="button" *ngIf="user.role==role" (click)="toAddCourse()" class="btn btn-outline-light" aria-current="page">Add Course</button> -->
+
+
+                <form class="d-flex">
+                    <button type="button" *ngIf="!user" (click)="toLogin()" class="bt btn btn-outline-success">Log
+                        In</button>
+                    <button type="button" *ngIf="!user" (click)="toRegisterIn()" class="bt btn btn-outline-success">Sign
+                        In</button>
+                    <button type="button" *ngIf="user" (click)="toLogout()" class="bt btn btn-outline-success">Log
+                        Out</button>
+                </form>
+
+            </div>
         </div>
-    
-    </div>
+    </nav>
 
-</nav>
+
+</div>
