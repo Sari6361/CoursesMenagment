@@ -1,9 +1,10 @@
 .head{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
 .bt{
     margin: 10px;
+   margin-left: 50px;
 }

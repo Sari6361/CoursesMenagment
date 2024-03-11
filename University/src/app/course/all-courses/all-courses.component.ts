@@ -1,53 +1,96 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Course } from '../../../Entities/Course.model';
 import { CourseService } from '../course.service';
-import { EventEmitter } from 'stream';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../Entities/User.model';
 import { UserService } from '../../user/user.service';
+import Swal from 'sweetalert2';
+import { Category } from '../../../Entities/Category.model';
+import { FormsModule } from '@angular/forms';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'app-all-courses',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './all-courses.component.html',
   styleUrl: './all-courses.component.css'
 })
-export class AllCoursesComponent implements OnInit{
- 
-  courses:Course[];
-  user:User;
+export class AllCoursesComponent implements OnInit {
 
-  // @Output()
-  // onUpdatePress:EventEmitter<Course>=new EventEmitter();
+  courses: Course[];
+  categories: Category[];
+  user: User;
 
-  // @Output()
-  // onMoreDetailes:EventEmitter<Course>=new EventEmitter();
+  //filters
+  name: string;
+  category: Category;
+  countLessons: number;
+  startDate: Date;
 
-  update(course:Course){
-    // this.onUpdatePress.emit(course);
-    this._router.navigate(['/updateCourse',course]);
+
+  update(course: Course) {
+    this._router.navigate(['/updateCourse', course]);
   }
 
-  moreDetailes(course:Course){
-    // this.onMoreDetailes.emit(course);
-    this._router.navigate(['/moreDetailes',course]);
+  moreDetailes(course: Course) {
+    this._router.navigate([`/courseDetailes`, course.id]);
   }
 
-  deleteCourse(courseId:number){
+  deleteCourse(courseId: number) {
     this._courseService.deleteCourse(courseId).subscribe({
-      next:(data)=>{ }});
+      next: (data) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "deleted successfully"
+        });
+      }
+    });
 
   }
-  constructor(private _courseService:CourseService,private _userService:UserService, private _router:Router) {  }
- 
+
+  onSubmit() {
+    this.courses = this.courses.filter((c) =>
+      (this.name == null || this.name == c.name) &&
+      (this.category.id == null || this.category.id == c.categoryId) &&
+      (this.countLessons == 0 || this.countLessons == c.lessonsCount) &&
+      (this.startDate == null || this.startDate == c.startDate));
+  }
+
+  reset(){
+    this._courseService.getAllCourses().subscribe({
+      next: (data) => {
+        this.courses = data;
+      }});
+  }
+
+  constructor(private _courseService: CourseService, private _categoriesService: CategoryService, private _router: Router) { }
+
   ngOnInit(): void {
     this._courseService.getAllCourses().subscribe({
-      next:(data) =>{
-        this.courses=data;
-      }});
-      this.user=JSON.parse(localStorage.getItem("user"));
+      next: (data) => {
+        this.courses = data;
+      }
+    });
+    this._categoriesService.getCategories().subscribe({
+      next:(data)=>{
+        this.categories=data;
+      },
+      error:(err)=>console.log(err)
+    })
+    this.user = JSON.parse(localStorage.getItem("user"));
   }
 
 

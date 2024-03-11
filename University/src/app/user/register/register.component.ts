@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Role } from '../../../Entities/User.model';
+import { Role, User } from '../../../Entities/User.model';
 import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
 
 @Component({
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private _userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.registerUser = new FormGroup({
       'id': new FormControl(''),
       'name': new FormControl('', [Validators.required, Validators.minLength(5)]),

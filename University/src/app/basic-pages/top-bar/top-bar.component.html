@@ -3,18 +3,21 @@
         <div class="container-fluid">
             <div class="container-fluid head">
 
+                <div>
 
-                <button type="button" (click)="toHomePage()" class="bt btn btn-outline-light"
-                    aria-current="page">Home</button>
+                    <button type="button" (click)="toHomePage()" class="bt btn btn-outline-light"
+                        aria-current="page">Home</button>
 
-                <button type="button" (click)="toAllCourses()" class="bt btn btn-outline-light" aria-current="page">All
-                    Course</button>
+                    <button type="button" (click)="toAllCourses()" class="bt btn btn-outline-light"
+                        aria-current="page">All
+                        Course</button>
 
-                <button type="button" *ngIf="user!=null" (click)="toMyCourses()" class="bt btn btn-outline-light"
-                    aria-current="page">My Courses</button>
+                    <button type="button" *ngIf="user!=null" (click)="toMyCourses()" class="bt btn btn-outline-light"
+                        aria-current="page">My Courses</button>
 
-                <!-- <button  type="button" *ngIf="user.role==role" (click)="toAddCourse()" class="btn btn-outline-light" aria-current="page">Add Course</button> -->
+                    <!-- <button  type="button" *ngIf="user.role==role" (click)="toAddCourse()" class="btn btn-outline-light" aria-current="page">Add Course</button> -->
 
+                </div>
 
                 <form class="d-flex">
                     <button type="button" *ngIf="!user" (click)="toLogin()" class="bt btn btn-outline-success">Log
