@@ -9,7 +9,7 @@
     "test": "ng test"
   },
   "private": true,
-  "dependencies": {
+    "dependencies": {
     "@angular/animations": "^17.2.0",
     "@angular/common": "^17.2.0",
     "@angular/compiler": "^17.2.0",
@@ -24,6 +24,7 @@
     "sweetalert2": "^11.10.6",
     "zone.js": "~0.14.3"
   },
+  
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.2",
     "@angular/cli": "^17.2.2",

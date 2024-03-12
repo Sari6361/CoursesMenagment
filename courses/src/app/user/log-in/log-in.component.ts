@@ -40,20 +40,14 @@ export class LogInComponent {
   public Login() {
 
     if (this._userService.loginUser(this.userLogin.controls['name'].value, this.userLogin.controls['password'].value)) {
-      let user = JSON.parse(localStorage.getItem("user"));
+      let user = JSON.parse(sessionStorage.getItem("user"));
       console.log("user: ", user);
       Swal.fire({
         title: `Welcome! ${user.name}`,
         text: "we are fun you come in back!",
         icon: "success"
       });
-      // sessionStorage.setItem("user", JSON.stringify(user));
       this._router.navigate(['/home']);
-    }
-
-    else {
-
-
     }
   }
 }

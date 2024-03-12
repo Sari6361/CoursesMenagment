@@ -51,7 +51,9 @@ export class HeaderComponent {
   }
 
   toLogout() {
-    localStorage.setItem("/user", "");
+    
+  //  this._router.navigate([this._router.getCurrentNavigation()]);
+    sessionStorage.setItem("user", "");
   }
 
 }

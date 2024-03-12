@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../user.service';
 import { CommonModule } from '@angular/common';
+import { User } from '../../../Entities/User.model';
 
 @Component({
   selector: 'app-register-in',
@@ -37,37 +38,51 @@ export class RegisterInComponent {
 
   public Save() {
     let u = this.registerUser.value;
+    let users: User[];
     console.log("save", u);
 
-
-    this._userService.addUser(u).subscribe({
-      next: (user) => {
-        console.log("user: ", user);
-        if (user) {
-
+    this._userService.getUsers().subscribe({
+      next: (data) => {
+        users = data;
+        if (users.find(s => u.name == s.name && u.password == s.password)) {
           Swal.fire({
-            title: `Welcome! ${user.name}`,
-            text: "You've register in successfully!",
-            icon: "success"
+            icon: "error",
+            title: "Oops...",
+            text: "User exist",
           });
+          this.router.navigate(['/home']);
+        }
+        else {
+          this._userService.addUser(u).subscribe({
+            next: (user) => {
+              console.log("user: ", user);
+              Swal.fire({
+                title: `Welcome! ${user.name}`,
+                text: "You've register in successfully!",
+                icon: "success"
+              });
 
-          sessionStorage.setItem("user", JSON.stringify(user));
-          this.router.navigate(['/course/allCourses']);
+              sessionStorage.setItem("user", JSON.stringify(user));
+              this.router.navigate(['/course/all']);
+            },
+            error: (err) => {
+              console.log("log:", u);
+              Swal.fire({
+                title: `Oh ${u?.name}`,
+                text: "You've problame in registe! please check",
+                icon: "error"
+              });
+
+              this.router.navigate(['/home']);
+              console.log("user: ", err);
+            }
+          });
         }
 
+      }
+    })
 
-      },
-      error: (err) => {
-        console.log("log:", u);
-        Swal.fire({
-          title: `Oh ${u?.name}`,
-          text: "You've problame in registe! please check",
-          icon: "error"
-        });
 
-        this.router.navigate(['/home']);
-        console.log("user: ", err);
-      }});
   }
 
 

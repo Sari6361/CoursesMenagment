@@ -8,6 +8,6 @@ export class User {
 }
 
 export enum Role{
-    Student=1,
-    Lecturer=2
+    Student=0,
+    Lecturer=1
 }

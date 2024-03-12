@@ -23,6 +23,7 @@ export class AddCourseComponent implements OnInit {
   public categories: Category[];
   public user: User;
   public add:boolean=false;
+  
 
   constructor(private _courseService: CourseService, private _categoriesService: CategoryService, private _router: Router, private _formBuilder:FormBuilder) { }
 

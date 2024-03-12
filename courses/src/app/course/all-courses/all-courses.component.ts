@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CourseService } from '../course.service';
 import Swal from 'sweetalert2';
 import { Course, LearningWay } from '../../../Entities/Course.model';
@@ -6,28 +6,29 @@ import { Category } from '../../../Entities/Category.model';
 import { User } from '../../../Entities/User.model';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../category/category.service';
-
-
-export const c=[
-  {"name":"Math","categoryId":1,"lessonsCount":12,"startDate":new Date(12,12,2024),syllabus:["wow", "tyyy"], "learningWay":LearningWay.Frontal, "lecturerId":1,imgRouting:""}
-];
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-all-courses',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, ],
   templateUrl: './all-courses.component.html',
   styleUrl: './all-courses.component.scss'
 })
 export class AllCoursesComponent {
-  courses: Course[]=c;
+  courses: Course[];
   categories: Category[];
   user: User;
 
   //filters
+  @Input()
   name: string;
+  @Input()
   category: Category;
+  @Input()
   startDate: Date;
+  @Input()
   learningWay:LearningWay;
 
 
@@ -74,6 +75,10 @@ export class AllCoursesComponent {
   }
 
   reset() {
+    this.name='';
+    this.category=null;
+    this.startDate=null;
+    this.learningWay=null;
     this._courseService.getAllCourses().subscribe({
       next: (data) => {
         this.courses = data;
@@ -86,16 +91,18 @@ export class AllCoursesComponent {
   ngOnInit(): void {
     this._courseService.getAllCourses().subscribe({
       next: (data) => {
+        console.log("c",data);
         this.courses = data;
+        console.log(this.courses);
       }
     });
-    this._categoriesService.getCategories().subscribe({
-      next: (data) => {
-        this.categories = data;
-      },
-      error: (err) => console.log(err)
-    })
-    this.user = JSON.parse(localStorage.getItem("user"));
+    // this._categoriesService.getCategories().subscribe({
+    //   next: (data) => {
+    //     this.categories = data;
+    //   },
+    //   error: (err) => console.log(err)
+    // })
+    this.user = JSON.parse(sessionStorage.getItem("user"));
   }
 
 
