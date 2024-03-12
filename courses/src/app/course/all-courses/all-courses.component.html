@@ -29,10 +29,30 @@
 <br/>
 <div class="card-group bg-dark">
     <div class=" c container card">
-        <div *ngfor="let c in courses" class=" col-sm-6 mb-3 mb-sm-0">
+
+        @for (c of courses; track c.id) {
+            <div class=" col-sm-6 mb-3 mb-sm-0">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src={{ c.imgRouting }} class="card-img-top" alt="...">
+                        <h5 class="card-title">{{c.name}}</h5>
+                        <p class="card-text"></p>
+                        <button (click)="moreDetailes(c)" class="btn btn-primary">More Detailes</button>
+                        <button (click)="update(c)" class="btn btn-primary">Edit</button>
+                        <button (click)="deleteCourse(c.id)" class="btn btn-primary">Delete</button>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Start Date :{{c.startDate}} ,learning way is
+                                {{c.learningWay}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          } @empty {
+            Empty list of users}
+        <!-- <div *ngfor="let c of courses" class=" col-sm-6 mb-3 mb-sm-0">
             
-            <!-- <div class="card text-center"> -->
-                <!-- <div class="card-body"> -->
+            <div class="card text-center">
+                <div class="card-body">
                     <img src={{ c.imgRouting }} class="card-img-top" alt="...">
                     <h5 class="card-title">{{c.name}}</h5>
                     <p class="card-text"></p>
@@ -43,8 +63,8 @@
                         <small class="text-body-secondary">Start Date :{{c.startDate}} ,learning way is
                             {{c.learningWay}}</small>
                     </div>
-                <!-- </div> -->
-            <!-- </div> -->
-        </div>
+                </div>
+            </div>
+        </div> -->
     </div>
 <!-- </div> -->
