@@ -1,0 +1,64 @@
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+    <ng-container class="card">
+
+        <div class="card-body">
+
+            <form [formGroup]="userLogin">
+
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" [ngClass]="{'invalid':userLogin.controls['name'].errors}" type="text"
+                        id="name" formControlName="name" name="name" />
+                    <label class="form-label" for="name">user name:</label>
+
+                    <ng-container *ngIf="userLogin.get('name').touched && userLogin.controls['name'].errors">
+                        <div class="error" *ngIf="userLogin.controls['name'].errors['required']">
+                            This field is required
+                        </div>
+                    </ng-container>
+
+                </div>
+
+
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" [ngClass]="{'invalid':userLogin.controls['password'].errors}"
+                        type="password" id="password" formControlName="password" name="password" />
+                    <label for="password">user password:</label>
+
+                    <ng-container
+                        *ngIf="userLogin.controls['password'].touched && userLogin.controls['password'].errors ">
+                        <div class="error" *ngIf="userLogin.controls['password'].errors['required']">
+                            This field is required
+                        </div>
+                    </ng-container>
+
+                </div>
+
+                <div *ngIf="lectaruer" class="form-group form-floating mb-3">
+
+                    <select class="form-select" aria-label="Default select example" id="course" formControlName="course"
+                        name="course">
+                        <option selected disabled>select course</option>
+                        <option *ngFor="let c in courses" [value]="c.id">{{c.name}}</option>
+                    </select>
+                    <label class="form-label" for="course">Course:</label>
+
+                </div>
+
+
+                <div class="fl">
+                    <button class="b btn btn-primary" (click)="Login()" [disabled]="userLogin.invalid">Log In</button>
+                    <button class="b btn btn-outline-success" *ngIf="!lectaruer" (click)="lectaruer=true;">Lecturer
+                        Entrance</button>
+
+                </div>
+            </form>
+
+        </div>
+    </ng-container>
+</div>

@@ -41,6 +41,9 @@ app.UseCors("Policy");
 
 //--------------------------EnfPoints User------------------------------------------
 
+//Get Users
+app.MapGet("/users",async (UniversityDbContext context)=>Results.Ok(await context.Users.ToListAsync()));
+
 //Get user by Id
 app.MapGet("/users/{id}", async (UniversityDbContext context, int id) => Results.Ok(await context.Users.FindAsync(id)));
 

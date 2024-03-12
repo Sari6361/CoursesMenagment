@@ -42,15 +42,15 @@ export class TopBarComponent implements OnInit {
 
   toAddCourse() {
 
-    this._router.navigate(['/course/addCourse']);
+    this._router.navigate(['course/addCourse']);
   }
 
   toLogin() {
-    this._router.navigate(['/user/logIn']);
+    this._router.navigate(['user/logIn']);
   }
 
   toRegisterIn() {
-    this._router.navigate(['/user/registerIn']);
+    this._router.navigate(['user/registerIn']);
   }
 
   toLogout() {

@@ -2,7 +2,7 @@
 
 <div class="card">
     <div class="card-body">
-        <form [formGroup]="registerUser">
+        <form [formGroup]="registerUser"> 
 
             <div class="form-group form-floating mb-3">
 
@@ -59,10 +59,9 @@
                 <div class="form-group ">
                     <label class="control-label" for="role">user role:</label>
                     <br>
-                    <input class="radio" type="radio" name="role" formControlName="role" value="Role.Student"> Student
+                    <input class="radio" type="radio" name="role" formControlName="role" [value]="1"> Student
                     <br>
-                    <input class="radio" type="radio" name="role" formControlName="role" value="Role.Lecturer">
-                    Lecturer
+                    <input class="radio" type="radio" name="role" formControlName="role" [value]="2"> Lecturer
                 </div>
 
                 <ng-container *ngIf="registerUser.controls['role'].errors">
@@ -73,7 +72,7 @@
 
             </div>
             <br />
-            <button class="btn btn-primary" (click)="Save()" [disabled]="registerUser.invalid">Log In</button>
+            <button class="btn btn-success" (click)="Save()" [disabled]="registerUser.invalid">Register In</button>
 
         </form>
     </div>

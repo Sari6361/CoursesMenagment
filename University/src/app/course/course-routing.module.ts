@@ -8,11 +8,11 @@ import { CourseDetailesComponent } from "./course-detailes/course-detailes.compo
 
 const courseRoutes: Routes = [
     { path: '/', redirectTo: 'home', pathMatch: 'full' },
-    { path: "allCourses", component: AllCoursesComponent },
-    { path: "myCourses", component: AllCoursesComponent },
-    { path: "updateCourse", component: UpdateCourseComponent },
-    { path: "addCourse", component: AddCourseComponent },
-    { path: "courseDetailes/:id", component: CourseDetailesComponent },
+    { path: "/allCourses", component: AllCoursesComponent },
+    { path: "/myCourses", component: AllCoursesComponent },
+    { path: "/updateCourse", component: UpdateCourseComponent },
+    { path: "/addCourse", component: AddCourseComponent },
+    { path: "/courseDetailes/:id", component: CourseDetailesComponent },
     { path: "**", component: NotFoundComponent }
 ]
 

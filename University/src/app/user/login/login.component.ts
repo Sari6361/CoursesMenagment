@@ -6,6 +6,8 @@ import { User } from '../../../Entities/User.model';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
+import { Course } from '../../../Entities/Course.model';
+import { CourseService } from '../../course/course.service';
 
 @Component({
   selector: 'app-login',
@@ -18,37 +20,43 @@ import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
 export class LoginComponent implements OnInit {
 
   public userLogin: FormGroup;
+  public show: boolean = false;
+  public lectaruer:boolean=false;
+  public courses:Course[];
 
-
-
-  constructor(private _userService: UserService, private _router: Router) { }
+  constructor(private _userService: UserService,private _courseService:CourseService, private _router: Router) { }
 
   ngOnInit(): void {
+   
     this.userLogin = new FormGroup({
       'password': new FormControl([Validators.required]),
-      'name': new FormControl('', [Validators.required])
+      'name': new FormControl('', [Validators.required]),
+      'course':new FormControl('')
     });
-  }
-
-  public Login() {
-
-    this._userService.loginUser(this.userLogin.controls['name'].value, this.userLogin.controls['password'].value).subscribe({
-      next: (user) => {
-        console.log("user: ", user);
-        Swal.fire({
-          title: `Welcome! ${user.name}`,
-          text: "we are fun you come in back!",
-          icon: "success"
-        });
-        localStorage.setItem("user", JSON.stringify(user));
-        this._router.navigate(['/home']);
-      },
-      error: (err) => {
-        console.log(err);
-        this._router.navigate(['registerIn']);
-      }
+   
+    this._courseService.getAllCourses().subscribe({
+      next:(data)=>this.courses=data
     })
 
   }
 
+  public Login() {
+
+    if (this._userService.loginUser(this.userLogin.controls['name'].value, this.userLogin.controls['password'].value)) {
+      let user = JSON.parse(localStorage.getItem("user"));
+      console.log("user: ", user);
+      Swal.fire({
+        title: `Welcome! ${user.name}`,
+        text: "we are fun you come in back!",
+        icon: "success"
+      });
+      localStorage.setItem("user", JSON.stringify(user));
+      this._router.navigate(['/home']);
+    }
+
+    else {
+
+
+    }
+  }
 }

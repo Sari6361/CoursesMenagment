@@ -4,6 +4,7 @@ import { CourseService } from './course.service';
 import { CourseRoutingModule } from './course-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../user/user.service';
+import { CategoryService } from '../category.service';
 
 
 

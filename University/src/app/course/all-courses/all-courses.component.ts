@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../../../Entities/Course.model';
+import { Course, LearningWay } from '../../../Entities/Course.model';
 import { CourseService } from '../course.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../Entities/User.model';
-import { UserService } from '../../user/user.service';
 import Swal from 'sweetalert2';
 import { Category } from '../../../Entities/Category.model';
 import { FormsModule } from '@angular/forms';
-import { CategoryService } from '../category.service';
+import { CategoryService } from '../../category.service';
 
 @Component({
   selector: 'app-all-courses',
@@ -28,6 +27,7 @@ export class AllCoursesComponent implements OnInit {
   category: Category;
   countLessons: number;
   startDate: Date;
+  learningWay:LearningWay;
 
 
   update(course: Course) {
@@ -35,12 +35,15 @@ export class AllCoursesComponent implements OnInit {
   }
 
   moreDetailes(course: Course) {
-    this._router.navigate([`/courseDetailes`, course.id]);
+    if (localStorage.getItem("user"))
+      this._router.navigate([`/courseDetailes`, course.id]);
+    else
+    alert('please log / sign In')
   }
 
   deleteCourse(courseId: number) {
     this._courseService.deleteCourse(courseId).subscribe({
-      next: (data) => {
+      next: () => {
         const Toast = Swal.mixin({
           toast: true,
           position: "top-end",
@@ -66,14 +69,16 @@ export class AllCoursesComponent implements OnInit {
       (this.name == null || this.name == c.name) &&
       (this.category.id == null || this.category.id == c.categoryId) &&
       (this.countLessons == 0 || this.countLessons == c.lessonsCount) &&
-      (this.startDate == null || this.startDate == c.startDate));
+      (this.startDate == null || this.startDate == c.startDate) &&
+      (this.learningWay==null || this.learningWay==c.learningWay));
   }
 
-  reset(){
+  reset() {
     this._courseService.getAllCourses().subscribe({
       next: (data) => {
         this.courses = data;
-      }});
+      }
+    });
   }
 
   constructor(private _courseService: CourseService, private _categoriesService: CategoryService, private _router: Router) { }
@@ -85,10 +90,10 @@ export class AllCoursesComponent implements OnInit {
       }
     });
     this._categoriesService.getCategories().subscribe({
-      next:(data)=>{
-        this.categories=data;
+      next: (data) => {
+        this.categories = data;
       },
-      error:(err)=>console.log(err)
+      error: (err) => console.log(err)
     })
     this.user = JSON.parse(localStorage.getItem("user"));
   }

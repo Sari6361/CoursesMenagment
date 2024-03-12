@@ -5,7 +5,6 @@ import { CourseService } from '../course.service';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../Entities/User.model';
 import { UserService } from '../../user/user.service';
-import { error } from 'console';
 
 @Component({
   selector: 'app-course-detailes',

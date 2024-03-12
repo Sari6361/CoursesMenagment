@@ -2,29 +2,35 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import Swal from 'sweetalert2';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Role, User } from '../../../Entities/User.model';
 import { TopBarComponent } from "../../basic-pages/top-bar/top-bar.component";
 
 @Component({
-    selector: 'app-register',
-    standalone: true,
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.css',
-    imports: [RouterModule, ReactiveFormsModule, CommonModule, TopBarComponent]
+  selector: 'app-register',
+  standalone: true,
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, TopBarComponent]
 })
 export class RegisterComponent implements OnInit {
 
   public registerUser: FormGroup;
+  public name: string = "";
 
-  constructor(private _userService: UserService, private router: Router) { }
+  constructor(private _userService: UserService, private router: Router, private _route: ActivatedRoute) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+
+    this._route.params.subscribe((param) => {
+      if (param['name'] != null)
+        this.name = param['name']
+    });
     this.registerUser = new FormGroup({
       'id': new FormControl(''),
-      'name': new FormControl('', [Validators.required, Validators.minLength(5)]),
+      'name': new FormControl(this.name, [Validators.required, Validators.minLength(5)]),
       'addres': new FormControl(""),
       'email': new FormControl(""),
       'password': new FormControl("", [Validators.required, Validators.minLength(5)]),
@@ -34,24 +40,33 @@ export class RegisterComponent implements OnInit {
 
   public Save() {
     let u = this.registerUser.value;
+
+
     this._userService.addUser(u).subscribe({
       next: (user) => {
         console.log("user: ", user);
-        Swal.fire({
-          title: `Welcome! ${user.name}`,
-          text: "You've register in successfully!",
-          icon: "success"
-        });
-        localStorage.setItem("user", JSON.stringify(user));
-        this.router.navigate(['/home']);
+        if (user) {
+
+          Swal.fire({
+            title: `Welcome! ${user.name}`,
+            text: "You've register in successfully!",
+            icon: "success"
+          });
+        
+          localStorage.setItem("user", JSON.stringify(user));
+          this.router.navigate(['/course/allCourses']);
+        }
+        
+
       },
       error: (err) => {
-        console.log("log:",u);
+        console.log("log:", u);
         Swal.fire({
           title: `Oh ${u?.name}`,
-          text: "You've problame in registe! please check name and password",
+          text: "You've problame in registe! please check",
           icon: "error"
         });
+
         this.router.navigate(['/home']);
         console.log("user: ", err);
       }

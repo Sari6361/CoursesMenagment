@@ -1,0 +1,94 @@
+<br />
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="registerUser">
+
+
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" [ngClass]="{'invalid':registerUser.controls['name'].errors}" type="text"
+                        id="name" formControlName="name" name="name">
+                    <label class="form-label" for="name">User name:</label>
+                    <!-- 
+                @if(registerUser.get('name')?.invalid&& (registerUser.get('name')?.dirty ||
+                registerUser.get('name')?.touched) ){
+                   
+                    <p class="error">name is required.</p>
+                } -->
+
+                    <ng-container *ngIf="registerUser.controls['name'].errors">
+                        <div class="error"
+                            *ngIf="registerUser.get('name')?.dirty && registerUser.controls['name'].errors['required']">
+                            name is required.
+                        </div>
+                        <div class="error" *ngIf="registerUser.controls['name'].errors['minlength']">
+                            name must be at least 5 chars.
+                        </div>
+                    </ng-container>
+
+                </div>
+                <br />
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" type="text" id="addres" formControlName="addres" name="addres">
+                    <label class="form-label" for="addres">user address:</label>
+
+                </div>
+                <br />
+
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" type="email" id="email" formControlName="email" name="email">
+                    <label class="form-label" for="email">user email:</label>
+
+                </div>
+                <br />
+
+                <div class="form-group form-floating mb-3">
+
+                    <input class="form-control" [ngClass]="{'invalid':registerUser.controls['password'].errors}"
+                        type="password" id="password" formControlName="password" name="password">
+                    <label class="form-label" for="password">user password:</label>
+
+                    <ng-container
+                        *ngIf="registerUser.get('password')?.dirty && registerUser.controls['password'].errors">
+                        <div class="error" *ngIf="registerUser.controls['password'].errors['required']">
+                            password is required.
+                        </div>
+                        <div class="error" *ngIf="registerUser.controls['password'].errors['minlength']">
+                            password must be at least 5 chars.
+                        </div>
+                    </ng-container>
+
+                </div>
+                <br />
+
+                <div class="form-group form-floating mb-3">
+
+                    <div class="form-group ">
+                        <label class="control-label" for="role">user role:</label>
+                        <br>
+                        <input class="radio" type="radio" name="role" formControlName="role" [value]="1">
+                        Student
+                        <br>
+                        <input class="radio" type="radio" name="role" formControlName="role" [value]="2">
+                        Lecturer
+                    </div>
+
+                    <ng-container *ngIf="registerUser.controls['role'].errors">
+                        <div class="error" *ngIf="registerUser.controls['role'].errors['required']">
+                            please choose your role, it`s required.
+                        </div>
+                    </ng-container>
+
+                </div>
+                <br />
+                <button class="btn btn-success" (click)="Save()" type="submit"
+                    [disabled]="registerUser.invalid">Register
+                    In</button>
+
+            </form>
+        </div>
+    </div>
+</div>
