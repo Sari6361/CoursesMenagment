@@ -1,19 +1,29 @@
 <p>course-detailes works!</p>
-<div class="card border-info">
-    <img class="card-img-top" src={{course.imgRouting}} alt="Card image">
-    <div class="card-body">
-        <div class="card-header bg-transparent border-success">{{course.name}}</div>
 
-        <p class="card-text">in this course there are {{course.lessonsCount}} lessons</p>
-        <p class="card-text">The learning way is {{course.learningWay}}</p>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">{{course?.name}}</div>
+            <div class="card-text">{{category?.name}}
+                <div class="icon">{{category?.iconRouting}}</div>
+            </div>
+        </div>
+        <p><b>Course Duration:</b> {{course?.amount}} Sessions | <b>Learning format:</b>
+            {{learnType[course?.learningType]}}</p>
+        <p><b>Start Date:</b> {{ course?.beginDate}}</p>
+        <b>Course lecturer: {{course?.lecturerId}}</b>
+        <img class="image" src={{course?.image}} alt="Photo of a camera">
+        <div class=" card-body">
+            <h2>{{course?.syllabus[0]}}</h2>
+            <div *ngFor="let line of course?.syllabus">
+                <h4 *ngIf="line.startsWith('Unit')">{{line}}</h4>
 
-        <h5 class="card-title">Syllabus is:</h5>
-        <ul class="list-group list-group-flush">
-            <li *ngFor="let s of course.syllabus" class="list-group-item">{{s}}</li>
-        </ul>
+                <li *ngIf="!line.startsWith('Unit')&&line!=course?.syllabus[0]">{{line}}</li>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-outline-success">LIKE</button>
+            <button class="btn btn-outline-success">SHARE</button>
+        </div>
     </div>
-    
-    <div class="card-footer">
-        <small class="text-body-secondary">course lecteruer: {{lecteruer.name}} start at: {{course.startDate}}</small>
-      </div>
 </div>

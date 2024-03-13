@@ -1,82 +1,65 @@
+// import { HttpClient } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../../Entities/User.model';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+import { UserModel } from '../../Entities/UserModel.model'
+const url = "http://localhost:5024";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
+
+  constructor(private _http: HttpClient, private _router: Router) { }
+
+  getUsers(): Observable<User[]> {
+    return this._http.get<User[]>(`${url}/users`);
+  }
+
   getUserById(id: number): Observable<User> {
-    return this._http.get<User>(`/users/${id}`);
+    return this._http.get<User>(`${url}/users/${id}`);
   }
 
-  checkAddition(user: User): boolean {
-    let users: User[];
-
-    this._http.get<User[]>('/users').subscribe({
-      next: (data) => {
-        users = data;
-      }
-    });
-
-    let u = users.find(u => u.name == user.name && u.addres == user.addres);
-    if (u != null)
-      return false;
-    return true;
-  }
-
-  loginUser(name: string, password: string): boolean {
+  loginUser(name: string, password: string) :boolean{
 
     let users: User[];
 
-    this._http.get<User[]>('/users').subscribe({
+   this.getUsers().subscribe({
       next: (data) => {
-        users = data;
-      }
+         users = data;
+        console.log("service user", data);
+
+        let u = users.find(u => u.name == name && u.password == password);
+        if (u != null) {
+          sessionStorage.setItem("user", JSON.stringify(u));
+          return true;
+        }
+
+        if (users.find(u => u.name == name))
+          return false;
+        else
+          this._router.navigate(['/registerIn', name]);
+        return false;
+      },
+      error: (err) => console.log("errr", err.message)
+
     });
-
-    let u = users.find(u => u.name == name && u.password == password);
-    if (u != null) {
-      localStorage.setItem("user", JSON.stringify(u));
-      return true;
-    }
-
-    if (users.find(u => u.name == name))
-      return false;
-    else
-      this._router.navigate(['registerIn', name]);
     return false;
+
   }
 
   addUser(user: User): Observable<User> {
-    console.log("service", user);
-    let users: User[];
-
-    this._http.get<User[]>('/users').subscribe({
-      next: (data) => {
-        users = data;
-      }
-    });
-
-    if (users.find(u => u.name == user.name && u.password == user.password)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "User exist",
-      });
-      return null;
-    }
-
-    return this._http.post(`/users`, user);
+    let u: UserModel = new UserModel(user.name, user.addres, user.email, user.password, user.role);
+    console.log("adduser ", u);
+    
+    return this._http.post(`${url}/users`, u);
   }
 
   updateUser(user: User): Observable<User> {
-    return this._http.put(`/users/${user.id}`, user);
+    return this._http.put(`${url}/users/${user.id}`, user);
   }
 
-  constructor(private _http: HttpClient, private _router: Router) { }
 }

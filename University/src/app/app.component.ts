@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from "./basic-pages/home/home.component";
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TopBarComponent } from "./basic-pages/top-bar/top-bar.component";
-import { CategoryService } from './category.service';
-
+import { HeaderComponent } from './basic-pages/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-root',
-    standalone: true,
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
-    imports: [RouterOutlet, HomeComponent, ReactiveFormsModule, FormsModule, TopBarComponent],
-    providers:[CategoryService]
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, HeaderComponent, HttpClientModule, FormsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'University';
+  title = 'Courses';
 }

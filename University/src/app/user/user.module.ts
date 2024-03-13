@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from './user.service';
+import { UserRoutingModule } from './user-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserRoutingModule } from './user-routing/user-routing.module';
+import { UserService } from './user.service';
+import { HttpClientModule } from '@angular/common/http';
+import { RegisterInComponent } from './register-in/register-in.component';
+import { LogInComponent } from './log-in/log-in.component';
 import { CourseService } from '../course/course.service';
-
 
  
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, UserRoutingModule ],
-  //כל מי שיבקש את הסרוויס הזה מהעץ הזה ומטה יוכל לקבל אותו
-  providers:[UserService, CourseService]
+  imports: [CommonModule, UserRoutingModule, ReactiveFormsModule, FormsModule, HttpClientModule, RegisterInComponent, LogInComponent],
+  providers: [UserService, CourseService]
 })
 export class UserModule { }

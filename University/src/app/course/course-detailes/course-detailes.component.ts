@@ -1,52 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../../../Entities/Course.model';
-import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../course.service';
-import { CommonModule } from '@angular/common';
-import { User } from '../../../Entities/User.model';
-import { UserService } from '../../user/user.service';
+import { CategoryService } from '../../category/category.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Course, LearningWay } from '../../../Entities/Course.model';
+import { Category } from '../../../Entities/Category.model';
 
 @Component({
   selector: 'app-course-detailes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './course-detailes.component.html',
-  styleUrl: './course-detailes.component.css'
+  styleUrl: './course-detailes.component.scss'
 })
 export class CourseDetailesComponent implements OnInit {
 
-  public course: Course;
-  public courseId: number;
-  public lecteruer: User;
+  course: Course;
+  category: Category;
+  learnType = LearningWay;
 
-  constructor(private _route: ActivatedRoute, private _courseService: CourseService, private _userService: UserService) { }
-
-  ngOnInit(): void {
-    this._route.params.subscribe(async (param) => {
-      this.courseId = param['id'];
-      await this._courseService.getCourseById(this.courseId).subscribe({
-        next: (res) => {
-          this.course = res
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      })
-    });
-    this._userService.getUserById(this.course.lecturerId).subscribe({
-      next: (res) => {
-        this.lecteruer = res;
-      },
-      error: (err) => {
-        console.log(err);      
-      }
-    });
-
-
+  constructor(private _courseService: CourseService, private _categoryService: CategoryService, private _router: Router, private _route: ActivatedRoute) {
   }
 
+  ngOnInit(): void {
+    if (sessionStorage.getItem("user") == undefined)
+      this._router.navigate(['/']);
+    let id = this._route.params['id'];
+    this._courseService.getCourseById(id).subscribe({
+      next: (data) => {
+        this.course = data;
+      }, error: (err) => console.log(err)
+    });
 
-
-
-
+    this._categoryService.getCategories().subscribe({
+      next: (d) => {
+        if (d)
+          this.category = d.find(x => x.id == this.course.categoryId)
+      }
+    });
+  }
 }

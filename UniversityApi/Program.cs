@@ -140,4 +140,9 @@ app.MapPost("/categories", async (UniversityDbContext context, Category category
     return category;
 });
 
+
+
+
+
+
 app.Run();

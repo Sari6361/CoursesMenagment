@@ -1,0 +1,89 @@
+<p>add-course works!</p>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="card">
+                <form [formGroup]="courseForm">
+                    <!-- name -->
+                    <div class="form-group form-floating mb-3">
+                        <input type="text" class="form-control" , id="name" formControlName="name" name="name"
+                            [ngClass]="{'invalid':courseForm.controls['name'].errors}" />
+                        <label for="name" class="label">Course name:</label>
+
+                        <ng-container *ngIf="courseForm.controls['name'].touched && courseForm.controls['name'].errors">
+                            <div class="error" *ngIf="courseForm.controls['name'].errors['required']">
+                                This field is required</div>
+                        </ng-container>
+                    </div>
+                    <!-- category  -->
+                    <div class="form-group form-floating mb-3">
+                        <select class="form-select" id="category" formControlName="category" name="category"
+                            [ngClass]="{'invalid':courseForm.controls['name'].errors}">
+                            <option selected disabled>Choose category</option>
+                            <option *ngFor="let c in categories" [value]="c.id">{{c.name}}</option>
+                        </select>
+                        <label for="category" class="form-label">Category:</label>
+
+                        <ng-container
+                            *ngIf="courseForm.controls['category'].touched && courseForm.controls['category'].errors">
+                            <div class="error" *ngIf="courseForm.controls['category'].errors['required']">
+                                category is requiered</div>
+                        </ng-container>
+
+                        <app-add-category />
+                    </div>
+                    <!-- lessonsCount -->
+                    <div class="form-group form-floating mb-3">
+                        <input type="number" class="form-control" , id="lessonsCount" formControlName="lessonsCount"
+                            name="lessonsCount" [ngClass]="{'invalid':courseForm.controls['name'].errors}" />
+                        <label for="lessonsCount" class="form-label">lessons Count:</label>
+
+                        <ng-container
+                            *ngIf="courseForm.controls['lessonsCount'].touched && courseForm.controls['lessonsCount'].errors">
+                            <div class="error"
+                                *ngIf="courseForm.controls['lessonsCount'].errors['required']">
+                                This field is required</div>
+                        </ng-container>
+                    </div>
+                    <!-- learningWay -->
+                    <div class="form-group form-floating mb-3">
+                        <div class="form-group ">
+                            <input class="radio" type="radio" name="role" formControlName="role" [value]="1"> Frontal
+                            <input class="radio" type="radio" name="role" formControlName="role" [value]="2"> Zoom
+                            <label class="form-label" for="role">user role:</label>
+                        </div>
+                    </div>
+                    <!-- imgRouting -->
+                    <div class="form-group form-floating mb-3">
+                        <input type="text" class="form-control" , id="imgRouting" formControlName="imgRouting"
+                            name="imgRouting" [ngClass]="{'invalid':courseForm.controls['imgRouting'].errors}" />
+                        <label for="imgRouting" class="form-label">Course name:</label>
+
+                        <ng-container
+                            *ngIf="courseForm.controls['imgRouting'].touched && courseForm.controls['imgRouting'].errors">
+                            <div class="error"
+                                *ngIf="courseForm.controls['imgRouting'].errors['required']">
+                                This field is required</div>
+                        </ng-container>
+                    </div>
+                    <!-- syllabus -->
+                    <div>
+                        <div formArrayName="syllabus">
+                            <h2>add Syllabus:</h2>
+
+                            <div *ngFor="let s of syllabus.controls; let i=index">
+                                <label class="form-label" for="line-{{ i }}">Syllabus:</label>
+                                <input id="lines-{{ i }}" type="text" [formControlName]="i" class="form-control"/>
+                            </div>
+
+                            <button class="btn btn-outlet-success" type="button" (click)="addLine()">+ Add another line</button>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,48 +1,56 @@
-<p>all-courses works!</p>
 
 <nav class="navbar  bg-dark">
     <div class="container-fluid">
-        <form class="d-flex" #taskForm="ngForm" (ngSubmit)="onSubmit()">
+        <form class="f" #taskForm="ngForm" (ngSubmit)="onSubmit()">
 
             <div class="form-group">
-                <input id="searce"  class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="name">
+                <input id="searce"  class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" >
             </div>
 
             <div class="form-group">
-                <label for="searce">Choose start date</label>
-                <input id="searce" type="date" class="form-control me-2" placeholder="choose start date" [(ngModel)]="startDate" >
-            </div>
-
-            <div class="form-group">
-                <label for="searce">course lessons</label>
-                <input id="searce" class="form-control me-2" type="number" placeholder="enter number of lessons" [(ngModel)]="countLessons">
-            </div>
-
-            <div class="form-group">
-                <select class="form-select">
-                    <option selected>Select Category</option>
-                    <option *ngFor="let c in categories" value="{{c}}" [(ngModel)]="category">c.name</option>
-                  </select>
-            </div>
-
+                <input id="searce" type="date" class="form-control me-2" placeholder="choose start date" [(ngModel)]="startDate"  [ngModelOptions]="{standalone: true}" >
+            </div> 
             
             <div class="form-group">
                 <select class="form-select">
                     <option selected>Select Category</option>
-                    <option value="1" [(ngModel)]="learningWay">Frontal</option>
-                    <option value="2" [(ngModel)]="learningWay">Zoom</option>
+                    <option value="1" [(ngModel)]="learningWay" [ngModelOptions]="{standalone: true}" >Frontal</option>
+                    <option value="2" [(ngModel)]="learningWay" [ngModelOptions]="{standalone: true}" >Zoom</option>
                   </select>
             </div>
 
-            <button class="btn btn-outline-success" (click)="taskForm.reset(); reset();">Reset</button>
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <div>
+                <button class="bt btn btn-outline-success" type="submit">Search</button>
+                <button class="bt btn btn-outline-success" (click)="reset()">Reset</button>
+            </div>
         </form>
     </div>
 </nav>
 <br/>
-<div class="card-group">
-    <div class="row">
-        <div *ngfor="let c in courses" class="col-sm-6 mb-3 mb-sm-0">
+ <div class="card-group bg-dark">
+    <div class=" c container card">
+
+        @for (c of courses; track c.id) {
+            <div class=" col-sm-6 mb-3 mb-sm-0">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src={{ c.imgRouting }} class="card-img-top" alt="...">
+                        <h5 class="card-title">{{c.name}}</h5>
+                        <p class="card-text"></p>
+                        <button (click)="moreDetailes(c)" class="btn btn-outline-success">More Detailes</button>
+                        <button (click)="update(c)" class="btn btn-outline-success">Edit</button>
+                        <button (click)="deleteCourse(c.id)" class="btn btn-outline-success">Delete</button>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Start Date :{{c.startDate}} ,learning way is
+                                {{c.learningWay}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          } @empty {
+            Empty list of users}
+         <!-- <div *ngfor="let c of courses" class=" col-sm-6 mb-3 mb-sm-0">
+            
             <div class="card text-center">
                 <div class="card-body">
                     <img src={{ c.imgRouting }} class="card-img-top" alt="...">
@@ -57,6 +65,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> -->
+</div>
 </div>
