@@ -8,11 +8,11 @@
                 <div class="icon">{{category?.iconRouting}}</div>
             </div>
         </div>
-        <p><b>Course Duration:</b> {{course?.amount}} Sessions | <b>Learning format:</b>
-            {{learnType[course?.learningType]}}</p>
-        <p><b>Start Date:</b> {{ course?.beginDate}}</p>
+        <p><b>Course Duration:</b> {{course?.lessonsCount}} Sessions | <b>Learning format:</b>
+            {{learnType[course?.learningWay]}}</p>
+        <p><b>Start Date:</b> {{ course?.startDate}}</p>
         <b>Course lecturer: {{course?.lecturerId}}</b>
-        <img class="image" src={{course?.image}} alt="Photo of a camera">
+        <img class="image" src={{course?.imgRouting}} alt="Photo of a camera">
         <div class=" card-body">
             <h2>{{course?.syllabus[0]}}</h2>
             <div *ngFor="let line of course?.syllabus">

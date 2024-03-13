@@ -9,7 +9,7 @@
     "test": "ng test"
   },
   "private": true,
-    "dependencies": {
+  "dependencies": {
     "@angular/animations": "^17.2.0",
     "@angular/common": "^17.2.0",
     "@angular/compiler": "^17.2.0",
@@ -20,11 +20,11 @@
     "@angular/router": "^17.2.0",
     "@rollup/rollup-win32-x64-msvc": "^4.12.1",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.6",
     "zone.js": "~0.14.3"
   },
-  
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.2",
     "@angular/cli": "^17.2.2",

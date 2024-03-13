@@ -1,1 +1,57 @@
-<p>add-category works!</p>
+
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop"
+    aria-controls="staticBackdrop">
+    Add Category
+</button>
+
+<div class="offcanvas offcanvas-start  text-bg-dark" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop"
+    aria-labelledby="staticBackdropLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="staticBackdropLabel">Category</h5>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="offcanvas" >Save</button> -->
+    </div>
+    <div class="offcanvas-body">
+
+        <div class="card">
+            <div class="card-body">
+                <ng-container class="card" >
+                    <div class="card-body">
+                        <form [formGroup]="categoryForm" (submit)="add()">
+                            <!-- name -->
+                            <div class="form-group form-floating mb-3">
+                                <input type="text" class="form-control" , id="name" formControlName="name" name="name"
+                                    [ngClass]="{'invalid':categoryForm.controls['name'].errors}" />
+                                <label for="name" class="label">Category name:</label>
+
+                                <ng-container
+                                    *ngIf="categoryForm.controls['name'].touched && categoryForm.controls['name'].errors">
+                                    <div class="alert alert-danger"
+                                        *ngIf="categoryForm.controls['name'].errors['required']">
+                                        This field is required</div>
+                                </ng-container>
+                            </div>
+
+                            <!-- iconRouting -->
+                            <div class="form-group form-floating mb-3">
+                                <input type="text" class="form-control" , id="iconRouting" formControlName="iconRouting" name="iconRouting"
+                                    [ngClass]="{'invalid':categoryForm.controls['iconRouting'].errors}" />
+                                <label for="iconRouting" class="label">icon Routing:</label>
+
+                                <ng-container
+                                    *ngIf="categoryForm.controls['iconRouting'].touched && categoryForm.controls['iconRouting'].errors">
+                                    <div class="alert alert-danger"
+                                        *ngIf="categoryForm.controls['iconRouting'].errors['required']">
+                                        This field is required</div>
+                                </ng-container>
+                            </div>
+
+                            <button class="btn btn-outlet-success" data-bs-dismiss="offcanvas">Save</button>
+
+                        </form>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -4,11 +4,12 @@ import { CategoryService } from '../../category/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Course, LearningWay } from '../../../Entities/Course.model';
 import { Category } from '../../../Entities/Category.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-course-detailes',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './course-detailes.component.html',
   styleUrl: './course-detailes.component.scss'
 })

@@ -31,9 +31,16 @@ export class AllCoursesComponent {
   @Input()
   learningWay: LearningWay;
 
+  getCategoryName(id: number) {
+    return this.categories.find(c => c.id == id).name;
+  }
+
+  getCategoryIcon(id:number){
+    return this.categories.find(c => c.id == id).iconRouting;
+  }
 
   update(course: Course) {
-    this._router.navigate(['/updateCourse', course]);
+    this._router.navigate(['/updateCourse', course.id]);
   }
 
   moreDetailes(course: Course) {
@@ -105,10 +112,6 @@ export class AllCoursesComponent {
 
     if (typeof window !== 'undefined' && sessionStorage.getItem("user"))
       this.user = JSON.parse(sessionStorage.getItem("user"));
-
-
-
-
   }
 
 

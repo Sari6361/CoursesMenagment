@@ -1,19 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Course } from '../../../Entities/Course.model';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../../Entities/User.model';
 import { CourseService } from '../course.service';
 import { CategoryService } from '../../category/category.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Category } from '../../../Entities/Category.model';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+import { AddCategoryComponent } from "../../category/add-category/add-category.component";
 
 @Component({
-  selector: 'app-add-edit-course',
-  standalone: true,
-  imports: [],
-  templateUrl: './add-edit-course.component.html',
-  styleUrl: './add-edit-course.component.scss'
+    selector: 'app-add-edit-course',
+    standalone: true,
+    templateUrl: './add-edit-course.component.html',
+    styleUrl: './add-edit-course.component.scss',
+    imports: [ReactiveFormsModule, CommonModule, AddCategoryComponent]
 })
 export class AddEditCourseComponent implements OnInit {
 
@@ -25,7 +27,7 @@ export class AddEditCourseComponent implements OnInit {
       this._router.navigate(['/']);
     this._route.params.subscribe((param) => {
       if (param['id'] != null)
-        this._courseService.getCourseById(this._route.params['id']).subscribe({
+        this._courseService.getCourseById(param['id']).subscribe({
           next: (data) => {
             this.course = data;
             this.add = false;
@@ -99,7 +101,7 @@ export class AddEditCourseComponent implements OnInit {
       next: (course) => {
         console.log("course: ", course);
         Swal.fire({
-          title: `Welcome! ${course.name}`,
+          title: `---${course.name}---`,
           text: "have been added successfuly!",
           icon: "success"
         });
